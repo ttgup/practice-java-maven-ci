@@ -27,4 +27,18 @@ jobs:
         with:
           name: java-maven-jar
           path: target/*.jar
+  download-artifact:
+    name: Download JAR Artifact
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Download JAR
+        uses: actions/download-artifact@v4
+        with:
+          name: maven-build
+          path: downloaded-jar
+
+      - name: Display downloaded JAR
+        run: ls -lh downloaded-jar/
 
