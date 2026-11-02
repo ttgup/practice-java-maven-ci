@@ -42,3 +42,31 @@ jobs:
       - name: Display downloaded JAR
         run: ls -lh downloaded-jar/
 
+  deploy:
+    name: Deploy JAR
+    runs-on: ubuntu-latest
+    needs: download-artifact
+
+    steps:
+      - name: Download JAR for deployment
+        uses: actions/download-artifact@v4
+        with:
+          name: java-maven-jar
+          path: deployment-package
+
+      - name: Verify deployment package
+        run: |
+          echo "Checking deployment package..."
+          ls -lh deployment-package/
+          test -n "$(find deployment-package -name '*.jar')"
+
+      - name: Simulate deployment
+        run: |
+          echo "Starting deployment..."
+          mkdir -p deployment
+          cp deployment-package/*.jar deployment/
+          echo "JAR copied to deployment directory."
+          ls -lh deployment/
+
+      - name: Deployment status
+        run: echo "Deployment completed successfully!"
