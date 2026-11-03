@@ -104,9 +104,9 @@ jobs:
             ttgupta/java-maven-ci:latest
             ttgupta/java-maven-ci:${{ github.sha }}
 
-- name: Upload deployment folder
-  uses: actions/upload-artifact@v4
-  with:
-    name: deployment-folder
-    path: deployment/
+        - name: Upload deployment folder
+          uses: actions/upload-artifact@v4
+          with:
+          name: deployment-folder
+          path: deployment/
 
